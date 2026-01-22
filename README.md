@@ -1,4 +1,4 @@
-# RFID and Indoor Positioning System
+# RFID and Indoor Positioning System (IPS)
 
 A comprehensive web-based management system for tracking and managing UHF RFID sticker-based attendance and user information. This system is designed for the **College of Engineering Education, Electronics Engineering** department to efficiently manage users, devices, and attendance logs.
 
