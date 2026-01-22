@@ -412,6 +412,8 @@ SOFTWARE.
 ## 👥 Authors
 
 - **Reyden Jenn Cagata** - *Initial work* - [reyden142](https://github.com/reyden142)
+- **Edwin Jr. Ligan** - [JMazeikeen](https://github.com/JMazeikeen)
+- **Shen Wa Lai** 
 
 ## 🙏 Acknowledgments
 
