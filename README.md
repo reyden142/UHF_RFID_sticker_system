@@ -85,7 +85,7 @@ A comprehensive web-based management system for tracking and managing UHF RFID s
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/UHF_RFID_sticker_system.git
+git clone https://github.com/reyden142/UHF_RFID_sticker_system.git
 cd UHF_RFID_sticker_system
 ```
 
@@ -286,7 +286,12 @@ UHF_RFID_sticker_system/
 │   └── user_log.js
 │
 └── img/                      # Images directory
-    └── RFID_STICKER_LOGO.jpg
+    ├── RFID_STICKER_LOGO.jpg
+    ├── login.png
+    ├── users.png
+    ├── map1.png
+    ├── map2.png
+    └── map3.png
 ```
 
 ## 🔒 Security Notes
@@ -317,11 +322,31 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📝 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Reyden Jenn Cagata
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- **Reyden Jenn Cagata** - *Initial work* - [reyden142](https://github.com/reyden142)
 
 ## 🙏 Acknowledgments
 
@@ -332,7 +357,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📞 Support
 
-For support, email your-email@example.com or open an issue in the repository.
+For support, email reydencagata@gmail.com or open an issue in the repository.
 
 ---
 
