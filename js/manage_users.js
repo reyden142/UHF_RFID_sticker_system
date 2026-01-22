@@ -6,10 +6,16 @@ $(document).ready(function(){
     var name = $('#name').val();
     var number = $('#number').val();
     var email = $('#email').val();
+    var sex = $('.sex:checked').val();
     //Additional Info
+
     var dev_uid = $('#dev_uid').val();
-    var sex = $(".sex:checked").val();
-	var stickercolor = $(".stickercolor").val();
+    var ssid = $('#ssid').val();
+    var Birthdate = $('#Birthdate').val();
+    var Contact = $('#Contact').val();
+    var EmergencyContact = $('#EmergencyContact').val();
+    var ValidationPeriod = $('#ValidationPeriod').val();
+    var MedicalHistory = $('#MedicalHistory').val();
     var dev_uid = $('#dev_sel option:selected').val();
     
     $.ajax({
@@ -23,7 +29,14 @@ $(document).ready(function(){
         'email': email,
         'dev_uid': dev_uid,
         'sex': sex,
-		'stickercolor': stickercolor,
+        'ssid':ssid,
+		'Birthdate': Birthdate,
+	    'Contact': Contact,
+	    'EmergencyContact': EmergencyContact,
+        'ValidationPeriod': ValidationPeriod,
+        'MedicalHistory': MedicalHistory,
+
+
       },
       success: function(response){
 
@@ -32,9 +45,13 @@ $(document).ready(function(){
           $('#name').val('');
           $('#number').val('');
           $('#email').val('');
-
           $('#dev_sel').val('0');
-		  $('#stickercolor').val('None');
+          $('#ssid').val('');
+		  $('#Birthdate').val('');
+		  $('#Contact').val('');
+		  $('#EmergencyContact').val('');
+          $('#ValidationPeriod').val('');
+          $('#MedicalHistory').val('');
 		  
           $('.alert_user').fadeIn(500);
           $('.alert_user').html('<p class="alert alert-success">A new User has been successfully added</p>');
@@ -63,10 +80,16 @@ $(document).ready(function(){
     var name = $('#name').val();
     var number = $('#number').val();
     var email = $('#email').val();
-    //Additional Info
-    var dev_uid = $('#dev_uid').val();
     var sex = $(".sex:checked").val();
-	var stickercolor = $(".stickercolor").val();
+    //Additional Info
+
+    var dev_uid = $('#dev_uid').val();
+    var ssid = $('#ssid').val();
+    var Birthdate = $('#Birthdate').val();
+    var Contact = $('#Contact').val();
+    var EmergencyContact = $('#EmergencyContact').val();
+    var ValidationPeriod = $('#ValidationPeriod').val();
+    var MedicalHistory = $('#MedicalHistory').val();
     var dev_uid = $('#dev_sel option:selected').val();
 
     $.ajax({
@@ -80,7 +103,12 @@ $(document).ready(function(){
         'email': email,
         'dev_uid': dev_uid,
         'sex': sex,
-		'stickercolor': stickercolor,
+        'ssid': ssid,
+		'Birthdate': Birthdate,
+		'Contact': Contact,
+		'EmergencyContact': EmergencyContact,
+        'ValidationPeriod': ValidationPeriod,
+        'MedicalHistory': MedicalHistory,
       },
       success: function(response){
 
@@ -89,9 +117,13 @@ $(document).ready(function(){
           $('#name').val('');
           $('#number').val('');
           $('#email').val('');
-
           $('#dev_sel').val('0');
-		  ('#stickercolor').val('None');
+          $('#ssid').val('')
+		  $('#Birthdate').val('');
+		  $('#Contact').val('');
+		  $('#EmergencyContact').val('');
+          $('#ValidationPeriod').val('');
+          $('#MedicalHistory').val('');
           $('.alert_user').fadeIn(500);
           $('.alert_user').html('<p class="alert alert-success">The selected User has been updated!</p>');
         }
@@ -135,8 +167,12 @@ $(document).ready(function(){
               $('#email').val('');
 
               $('#dev_sel').val('0');
-			  $('#stickercolor').val('');
-			  
+              $('#ssid').val('');
+			  $('#Birthdate').val('');
+			  $('#Contact').val('');
+			  $('#EmergencyContact').val('');
+              $('#ValidationPeriod').val('');
+              $('#MedicalHistory').val('');
               $('.alert_user').fadeIn(500);
               $('.alert_user').html('<p class="alert alert-success">The selected User has been deleted!</p>');
             }
@@ -207,9 +243,26 @@ $(document).ready(function(){
         var user_sex = {
           User_sex : []
         };
-		var user_stickercolor = {
-          User_stickercolor : []
+        var user_ssid = {
+          User_ssid : []
         };
+
+		var user_Birthdate = {
+          User_Birthdate : []
+        };
+        var user_Contact = {
+          User_Contact : []
+        };
+        var user_EmergencyContact = {
+          User_EmergencyContact : []
+        };
+         var user_ValidationPeriod = {
+          User_ValidationPeriod : []
+        };
+           var user_MedicalHistory = {
+          User_MedicalHistory : []
+        };
+
 
         var len = response.length;
 
@@ -220,7 +273,12 @@ $(document).ready(function(){
             user_email.User_email.push(response[i].email);
             user_dev.User_dev.push(response[i].device_uid);
             user_sex.User_sex.push(response[i].sex);
-			user_stickercolor.User_stickercolor.push(response[i].stickercolor);
+            user_ssid.User_ssid.push(response[i].ssid);
+			user_Birthdate.User_Birthdate.push(response[i].Birthdate);
+			user_Contact.User_Contact.push(response[i].Contact);
+			user_EmergencyContact.User_EmergencyContact.push(response[i].EmergencyContact);
+            user_ValidationPeriod.User_ValidationPeriod.push(response[i].ValidationPeriod);
+            user_MedicalHistory.User_MedicalHistory.push(response[i].MedicalHistory);
         }
         if (user_dev.User_dev == "All") {
           user_dev.User_dev = 0;
@@ -230,13 +288,21 @@ $(document).ready(function(){
         $('#number').val(user_on.User_on);
         $('#email').val(user_email.User_email);
         $('#dev_sel').val(user_dev.User_dev);
-		$('#stickercolor').val(user_stickercolor.User_stickercolor);
+        $('#ssid').val(user_ssid.User_ssid);
+		$('#Birthdate').val(user_Birthdate.User_Birthdate);
+		$('#Contact').val(user_Contact.User_Contact);
+		$('#EmergencyContact').val(user_EmergencyContact.User_EmergencyContact);
+        $('#ValidationPeriod').val(user_ValidationPeriod.User_ValidationPeriod);
+        $('#MedicalHistory').val(user_MedicalHistory.User_MedicalHistory);
 
-        if (user_sex.User_sex == 'Female'){
-            $('.form-style-5').find(':radio[name=sex][value="Female"]').prop('checked', true);
+
+
+
+        if (user_sex.User_sex == 'F'){
+            $('.form-style-5').find(':radio[name=sex][value="F"]').prop('checked', true);
         }
         else{
-            $('.form-style-5').find(':radio[name=sex][value="Male"]').prop('checked', true);
+            $('.form-style-5').find(':radio[name=sex][value="M"]').prop('checked', true);
         }
 
       },

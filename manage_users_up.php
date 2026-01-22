@@ -1,14 +1,22 @@
-<div class="table-responsive-sm" style="max-height: 870px;"> 
+
+<div class="table-responsive-sm" style="max-height: 870px;">
   <table class="table">
     <thead class="table-primary">
       <tr>
-        <th>Card UID</th>
-        <th>Name</th>
+        <th>UHF RFID</th>
+        <th>FullName</th>
         <th>sex</th>
         <th>ID</th>
         <th>Date</th>
-        <th>Dep</th>
-		<th>Sticker</th>
+        <th>SSID</th>
+        <th>Birthdate</th>
+        <th>Contact</th>
+        <th>EmergencyContact</th>
+        <th>ValidationPeriod</th>
+        <th>MedicalHistory</th>
+
+
+
       </tr>
     </thead>
     <tbody class="table-secondary">
@@ -42,8 +50,12 @@
                   <TD><?php echo $row['sex'];?></TD>
                   <TD><?php echo $row['serialnumber'];?></TD>
                   <TD><?php echo $row['user_date'];?></TD>
-                  <TD><?php echo ($row['device_dep'] == "0") ? "All" : $row['device_dep'];?></TD>
-				  <TD><?php echo $row['stickercolor'];?></TD>
+                  <TD><?php echo $row['ssid'];?></TD>
+                  <TD><?php echo $row['Birthdate'];?></TD>
+                  <TD><?php echo $row['Contact'];?></TD>
+                  <TD><?php echo $row['EmergencyContact'];?></TD>
+                  <TD><?php echo $row['ValidationPeriod'];?></TD>
+                  <TD><?php echo $row['MedicalHistory'];?></TD>
                   </TR>
     <?php
             }   

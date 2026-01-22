@@ -11,8 +11,8 @@ if (!isset($_SESSION['Admin-name'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/RFID_STICKER_LOGO.jpg" href="">
-	
-    
+
+
 
     <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -26,22 +26,29 @@ if (!isset($_SESSION['Admin-name'])) {
 </head>
 <body>
 
-<?php include'header.php'; ?> 
+<?php include'header.php'; ?>
+
 <main>
 <section>
   <h1 class="slideInDown animated">Here are all the Users</h1>
   <!--User table-->
-  <div class="table-responsive slideInRight animated" style="max-height: 400px;"> 
+  <div class="table-responsive slideInRight animated" style="max-height: 400px;">
     <table class="table">
       <thead class="table-primary">
         <tr>
           <th>Name</th>
-          <th>IDr</th>
+          <th>ID</th>
           <th>sex</th>
           <th>UHF RFID</th>
           <th>Date</th>
           <th>Deparment</th>
-		  <th>Sticker Color</th>
+          <th>SSID</th>
+          <th>Birthdate</th>
+          <th>Contact</th>
+          <th>Emergency Contact</th>
+          <th>Validation Period</th>
+          <th>Medical History</th>
+
         </tr>
       </thead>
       <tbody class="table-secondary">
@@ -67,7 +74,13 @@ if (!isset($_SESSION['Admin-name'])) {
                       <TD><?php echo $row['card_uid'];?></TD>
                       <TD><?php echo $row['user_date'];?></TD>
                       <TD><?php echo $row['device_dep'];?></TD>
-					  <TD><?php echo $row['stickercolor'];?></TD>
+                      <TD><?php echo $row['ssid'];?></TD>
+                      <TD><?php echo $row['Birthdate'];?></TD>
+                      <TD><?php echo $row['Contact'];?></TD>
+                      <TD><?php echo $row['EmergencyContact'];?></TD>
+                       <TD><?php echo $row['ValidationPeriod'];?></TD>
+                       <TD><?php echo $row['MedicalHistory'];?></TD>
+
                       </TR>
         <?php
                 }   

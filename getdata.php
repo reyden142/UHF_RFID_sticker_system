@@ -3,7 +3,10 @@
 require 'connectDB.php';
 date_default_timezone_set('Asia/Manila');
 $d = date("Y-m-d");
-$t = date("H:i:sa");
+
+list($microseconds, $seconds) = explode(' ', microtime());
+$t = date("H:i:s", $seconds) . substr($microseconds, 1, 4) . ' '.date("a"); // Get the first 4 digits of microseconds
+
 
 if (isset($_GET['card_uid']) && isset($_GET['device_token'])) {
     
@@ -41,40 +44,52 @@ if (isset($_GET['card_uid']) && isset($_GET['device_token'])) {
                         if ($row['device_uid'] == $device_uid || $row['device_uid'] == 0){
                                 $Uname = $row['username'];
                                 $Number = $row['serialnumber'];
-								$stickercolor = $row['stickercolor'];
-                                $sql = "SELECT * FROM users_logs WHERE card_uid=? AND checkindate=? AND card_out=0 AND stickercolor=?";
+                                $ssid = $row['ssid'];
+								$Birthdate = $row['Birthdate'];
+								$Contact = $row['Contact'];
+								$EmergencyContact = $row['EmergencyContact'];
+								$ValidationPeriod = $row['ValidationPeriod'];
+							    $MedicalHistory = $row['MedicalHistory'];
+
+
+                                $sql = "SELECT * FROM users_logs WHERE card_uid=? AND checkindate=? AND card_out=0 AND ssid=? ";
                                 $result = mysqli_stmt_init($conn);
                                 if (!mysqli_stmt_prepare($result, $sql)) {
                                     echo "SQL_Error_Select_logs";
                                     exit();
                                 }
                                 else{
-                                    mysqli_stmt_bind_param($result, "sss", $card_uid, $d, $stickercolor);
+                                    mysqli_stmt_bind_param($result, "sss", $card_uid, $d, $ssid);
                                     mysqli_stmt_execute($result);
                                     $resultl = mysqli_stmt_get_result($result);
                                     //*****************************************************
                                     //Login
                                     if (!$row = mysqli_fetch_assoc($resultl)){
 
-                                        $sql = "INSERT INTO users_logs (username, serialnumber, card_uid, device_uid, device_dep, checkindate, timein, timeout, stickercolor) VALUES (?,? ,?, ?, ?, ?, ?, ?, ?)";
-                                        $result = mysqli_stmt_init($conn);
-                                        if (!mysqli_stmt_prepare($result, $sql)) {
-                                            echo "SQL_Error_Select_login1";
-                                            exit();
-                                        }
-                                        else{
+                                        // Check if the username already exists in the users_logs table
+                                        $sql_check_username = "SELECT id FROM users_logs WHERE username = ?";
+                                        $stmt_check_username = mysqli_prepare($conn, $sql_check_username);
+                                        mysqli_stmt_bind_param($stmt_check_username, "s", $Uname);
+                                        mysqli_stmt_execute($stmt_check_username);
+                                        mysqli_stmt_store_result($stmt_check_username);
+
+                                        if (mysqli_stmt_num_rows($stmt_check_username) == 0) {
+                                            // Username doesn't exist in the users_logs table, insert a new record
+                                            $sql_insert = "INSERT INTO users_logs (username, serialnumber, card_uid, device_uid, device_dep, checkindate, timein, timeout, ssid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                            $stmt_insert = mysqli_prepare($conn, $sql_insert);
                                             $timeout = "00:00:00";
-                                            mysqli_stmt_bind_param($result, "sdsssssss", $Uname, $Number, $card_uid, $device_uid, $device_dep, $d, $t, $timeout, $stickercolor);
-                                            mysqli_stmt_execute($result);
+                                            mysqli_stmt_bind_param($stmt_insert, "sdsssssss", $Uname, $Number, $card_uid, $device_uid, $device_dep, $d, $t, $timeout, $ssid);
+                                            mysqli_stmt_execute($stmt_insert);
 
                                             echo "login".$Uname;
+                                            echo "time: ".$t;
                                             exit();
                                         }
                                     }
                                     //*****************************************************
                                     //Logout
                                     else{
-                                        $sql="UPDATE users_logs SET timeout=?, card_out=1 WHERE card_uid=? AND checkindate=? AND card_out=0 ";
+                                        $sql="UPDATE users_logs SET timeout=?, card_out=1 WHERE card_uid=? AND checkindate=? AND card_out=0";
                                         $result = mysqli_stmt_init($conn);
                                         if (!mysqli_stmt_prepare($result, $sql)) {
                                             echo "SQL_Error_insert_logout1";
@@ -85,6 +100,7 @@ if (isset($_GET['card_uid']) && isset($_GET['device_token'])) {
                                             mysqli_stmt_execute($result);
 	
                                             echo "logout".$Uname;
+                                            echo "Time".$t;
                                             exit();
                                         }
                                     }

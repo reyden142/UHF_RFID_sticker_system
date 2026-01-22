@@ -11,12 +11,13 @@ if (isset($_POST['Add'])) {
     $Email = $_POST['email'];
     $dev_uid = $_POST['dev_uid'];	
     $sex = $_POST['sex'];
-	$stickercolor =isset($_POST['stickercolor'])? $_POST['stickercolor'] :" ";
-    
-	if (!empty($Uname) && !empty($Number) && !empty($Email) && !empty($stickercolor)) {
-    // ...
-	}
-	
+    $ssid =isset($_POST['ssid'])? $_POST['ssid'] :" ";
+    $Birthdate =isset($_POST['Birthdate'])? $_POST['Birthdate'] :" ";
+    $Contact =isset($_POST['Contact'])? $_POST['Contact'] :" ";
+    $EmergencyContact = isset($_POST['EmergencyContact'])? $_POST['EmergencyContact'] :" ";
+    $ValidationPeriod = isset($_POST['ValidationPeriod'])? $_POST['ValidationPeriod'] :" ";
+    $MedicalHistory = isset($_POST['MedicalHistory'])? $_POST['MedicalHistory'] :" ";
+
     //check if there any selected user
     $sql = "SELECT add_card FROM users WHERE id=?";
     $result = mysqli_stmt_init($conn);
@@ -32,7 +33,7 @@ if (isset($_POST['Add'])) {
 
             if ($row['add_card'] == 0) {
 
-                if (!empty($Uname) && !empty($Number) && !empty($Email) && !empty($stickercolor)) {
+                if (!empty($Uname) && !empty($Number) && !empty($Email) && !empty($ssid) && !empty($Birthdate) && !empty($Contact) && !empty($EmergencyContact) && !empty($ValidationPeriod) && !empty($MedicalHistory) ) {
                     //check if there any user had already the Serial Number
                     $sql = "SELECT serialnumber FROM users WHERE serialnumber=? AND id NOT like ?";
                     $result = mysqli_stmt_init($conn);
@@ -62,14 +63,14 @@ if (isset($_POST['Add'])) {
                                     $dev_name = "All";
                                 }
                             }
-                            $sql="UPDATE users SET username=?, serialnumber=?, sex=?, stickercolor=?, email=?, user_date=CURDATE(), device_uid=?, device_dep=?, add_card=1 WHERE id=?";
+                            $sql="UPDATE users SET username=?, serialnumber=?, sex=?, email=?, ssid=?, Birthdate=?, Contact=?, EmergencyContact=?, ValidationPeriod=?, MedicalHistory=?, user_date=CURDATE(), device_uid=?, device_dep=?, add_card=1 WHERE id=?";
                             $result = mysqli_stmt_init($conn);
                             if (!mysqli_stmt_prepare($result, $sql)) {
                                 echo "SQL_Error_select_Fingerprint";
                                 exit();
                             }
                             else{
-                                mysqli_stmt_bind_param($result, "sdsssssi", $Uname, $Number, $sex, $stickercolor, $Email, $dev_uid, $dev_name, $user_id );
+                                mysqli_stmt_bind_param($result,"sdssssssssssi",  $Uname, $Number, $sex, $Email, $ssid, $Birthdate, $Contact, $EmergencyContact, $ValidationPeriod, $MedicalHistory, $dev_uid, $dev_name, $user_id );
                                 mysqli_stmt_execute($result);
 
                                 echo 1;
@@ -93,12 +94,12 @@ if (isset($_POST['Add'])) {
             }    
         }
         else {
-            echo "There's no selected Card!";
+            echo "There's no selected UHF RFID!";
             exit();
         }
     }
 }
-// Update an existance user 
+// Update an existance user
 if (isset($_POST['Update'])) {
 
     $user_id = $_POST['user_id'];
@@ -107,7 +108,16 @@ if (isset($_POST['Update'])) {
     $Email = $_POST['email'];
     $dev_uid = $_POST['dev_uid'];
     $sex = $_POST['sex'];
-	$stickercolor = isset($_POST['stickercolor'])? $_POST['stickercolor'] :" ";
+    $ssid = isset($_POST['ssid'])? $_POST['ssid'] :" ";
+	$Birthdate = isset($_POST['Birthdate'])? $_POST['Birthdate'] :" ";
+	$Contact = isset($_POST['Contact'])? $_POST['Contact'] :" ";
+	$EmergencyContact = isset($_POST['EmergencyContact'])? $_POST['EmergencyContact'] :" ";
+    $ValidationPeriod = isset($_POST['ValidationPeriod'])? $_POST['ValidationPeriod'] :" ";
+    $MedicalHistory = isset($_POST['MedicalHistory'])? $_POST['MedicalHistory'] :" ";
+
+    if (!empty($Uname) && !empty($Number) && !empty($Email) && !empty($ssid) &&  !empty($Birthdate) && !empty($Contact) && !empty($EmergencyContact) && !empty($ValidationPeriod) && !empty($MedicalHistory) ) {
+    // ...
+	}
 
     //check if there any selected user
     $sql = "SELECT add_card FROM users WHERE id=?";
@@ -127,7 +137,7 @@ if (isset($_POST['Update'])) {
                 exit();
             }
             else{
-                if (empty($Uname) && empty($Number) && empty($Email) && !empty($stickercolor)) {
+                if (empty($Uname) && empty($Number) && empty($Email) && empty($ssid)  && empty($Birthdate)  && empty($Contact) && empty($EmergencyContact) && empty($ValidationPeriod) && empty($MedicalHistory) ) {
                     echo "Empty Fields";
                     exit();
                 }
@@ -161,17 +171,17 @@ if (isset($_POST['Update'])) {
                                     $dev_name = "All";
                                 }
                             }
-                                    
-                            if (!empty($Uname) && !empty($Email) &&!empty($stickercolor)) {
 
-                                $sql="UPDATE users SET username=?, serialnumber=?, sex=?, stickercolor=?, email=?, device_uid=?, device_dep=? WHERE id=?";
+                            if (!empty($Uname) && !empty($Email)  && !empty($ssid)  &&  !empty($Birthdate)  && !empty($Contact) && !empty($EmergencyContact) && !empty($ValidationPeriod) && !empty($MedicalHistory))  {
+
+                                $sql="UPDATE users SET username=?, serialnumber=?, sex=?, ssid=?, Birthdate=?, Contact=?, EmergencyContact=?, ValidationPeriod=?, MedicalHistory=?, email=?, device_uid=?, device_dep=? WHERE id=?";
                                 $result = mysqli_stmt_init($conn);
                                 if (!mysqli_stmt_prepare($result, $sql)) {
                                     echo "SQL_Error_select_Card";
                                     exit();
                                 }
                                 else{
-                                    mysqli_stmt_bind_param($result, "sdsssssi", $Uname, $Number, $sex, $stickercolor, $Email, $dev_uid, $dev_name, $user_id );
+                                    mysqli_stmt_bind_param($result, "sdssssssssssi", $Uname, $Number, $sex, $ssid,  $Birthdate, $Contact, $EmergencyContact, $ValidationPeriod, $MedicalHistory, $Email, $dev_uid, $dev_name, $user_id );
                                     mysqli_stmt_execute($result);
 
                                     echo 1;
@@ -185,7 +195,7 @@ if (isset($_POST['Update'])) {
                         }
                     }
                 }
-            }    
+            }
         }
         else {
             echo "There's no selected User to be updated!";
@@ -193,7 +203,6 @@ if (isset($_POST['Update'])) {
         }
     }
 }
-// select fingerprint 
 if (isset($_GET['select'])) {
 
     $card_uid = $_GET['card_uid'];

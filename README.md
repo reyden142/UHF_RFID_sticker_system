@@ -1,4 +1,4 @@
-# UHF RFID Sticker System
+# RFID and Indoor Positioning System
 
 A comprehensive web-based management system for tracking and managing UHF RFID sticker-based attendance and user information. This system is designed for the **College of Engineering Education, Electronics Engineering** department to efficiently manage users, devices, and attendance logs.
 
@@ -6,6 +6,8 @@ A comprehensive web-based management system for tracking and managing UHF RFID s
 ![MySQL](https://img.shields.io/badge/MySQL-5.7+-4479A1?style=flat&logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-3.4-7952B3?style=flat&logo=bootstrap&logoColor=white)
 ![jQuery](https://img.shields.io/badge/jQuery-2.2.3-0769AD?style=flat&logo=jquery&logoColor=white)
+![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-199900?style=flat&logo=leaflet&logoColor=white)
+![MapTiler](https://img.shields.io/badge/MapTiler-API-FF6B6B?style=flat)
 
 ## 📋 Table of Contents
 
@@ -48,6 +50,26 @@ A comprehensive web-based management system for tracking and managing UHF RFID s
 - **Excel Export**: Export filtered attendance logs to Excel format (.xls)
 - **Customizable Filters**: Apply multiple filters before exporting
 
+### Real-Time Location Tracking (Map)
+- **Interactive Maps**: Dual-map view (Map 1 and Map 2) showing building floor plans with real-time user locations
+- **Live User Tracking**: Display users' current locations on interactive maps using Leaflet.js and MapTiler
+- **Online Users Display**: Real-time table showing currently online users with:
+  - Name and ID number
+  - Gender
+  - Contact information
+  - Emergency contact
+  - Medical history
+  - Current room location
+- **Room Count Visualization**: Animated circular progress indicators showing:
+  - Total persons in BE Building
+  - First Floor count
+  - Second Floor count
+  - Individual room counts (BE 111, BE 213, BE 216)
+- **Auto-Refresh**: Maps and user data automatically update every 5 seconds
+- **CSV Integration**: Reads location prediction data from CSV files for accurate positioning
+- **Marker Clustering**: Groups multiple users at the same location for better visualization
+- **User Information Popups**: Click markers to view detailed user information (name, SSID, coordinates)
+
 ### Admin Features
 - **Secure Authentication**: Admin login with email and password
 - **Password Reset**: Password recovery functionality
@@ -79,6 +101,11 @@ A comprehensive web-based management system for tracking and managing UHF RFID s
   - session
   - mbstring
 - **Browser**: Modern browsers (Chrome, Firefox, Safari, Edge)
+- **External Libraries** (loaded via CDN):
+  - Leaflet.js 1.9.4+ (for interactive maps)
+  - MapTiler SDK (for map tiles)
+  - PapaParse 5.3.0+ (for CSV parsing)
+- **CSV Files**: Location prediction CSV files for map functionality (see Configuration section)
 
 ## 🚀 Installation
 
@@ -151,6 +178,25 @@ The system uses `Asia/Manila` timezone. To change it:
   date.timezone = "Asia/Manila"
   ```
 
+### Map Configuration
+The map feature requires:
+- **CSV Files**: Location prediction CSV files must be placed in the `css/` directory:
+  - `final_predicted_values_aggregated_map1.csv`
+  - `final_predicted_values_aggregated_map2.csv`
+  - `room_counts.csv`
+- **MapTiler API Key**: The system uses MapTiler for map tiles. Update the API key in `map.php` if needed:
+  ```javascript
+  const key = 'aF7HhncV5bhT2pqqWdRV'; // Replace with your MapTiler API key
+  ```
+- **CSV File Paths**: Update CSV file paths in `map.php` to match your system:
+  ```php
+  $csvFiles = [
+      'path/to/final_predicted_values_aggregated_map1.csv',
+      'path/to/final_predicted_values_aggregated_map2.csv'
+  ];
+  ```
+- **User SSID**: Ensure users have SSID (MAC address) values in the database for location tracking
+
 ### Session Configuration
 - Session settings can be modified in `php.ini`
 - Default session timeout can be adjusted in PHP configuration
@@ -192,6 +238,16 @@ The system uses `Asia/Manila` timezone. To change it:
 3. Apply desired filters
 4. Click "Export" to download Excel file
 
+### Viewing Real-Time Location Map
+1. Go to **Map** from the navigation menu
+2. View the **Online Users** table showing currently active users with their information
+3. Check the **Room Count** indicators for real-time occupancy statistics
+4. View **Map 1** and **Map 2** side-by-side showing:
+   - Building floor plans with room boundaries
+   - User location markers (blue circles)
+   - Click markers to see user details and coordinates
+5. Maps automatically refresh every 5 seconds with the latest location data
+
 ## 🗄️ Database Structure
 
 ### Tables
@@ -217,6 +273,10 @@ Stores registered user information.
 - `device_uid`: Associated device UID
 - `device_dep`: Device department
 - `add_card`: Card addition status
+- `ssid`: MAC address/SSID for location tracking
+- `Contact`: User contact information
+- `EmergencyContact`: Emergency contact details
+- `MedicalHistory`: Medical history information
 
 #### `devices`
 Stores RFID reader device information.
@@ -253,6 +313,7 @@ UHF_RFID_sticker_system/
 ├── UsersLog.php              # Attendance logs viewer
 ├── devices.php               # Device management interface
 ├── Export_Excel.php          # Excel export functionality
+├── map.php                   # Real-time location tracking map interface
 │
 ├── connectDB.php             # Database connection configuration
 ├── ac_login.php              # Login authentication handler
@@ -263,6 +324,9 @@ UHF_RFID_sticker_system/
 ├── dev_config.php            # Device configuration handler
 ├── dev_up.php                # Device list updater (AJAX)
 ├── getdata.php               # Data retrieval handler
+├── map1_fetchUsername.php    # Fetch username for Map 1 markers
+├── map2_fetchUsername.php    # Fetch username for Map 2 markers
+├── map_room_counts_csv_updated.php  # Update room counts CSV
 │
 ├── header.php                # Navigation header component
 ├── install.php               # Database installation script
@@ -276,6 +340,7 @@ UHF_RFID_sticker_system/
 │   ├── userslog.css
 │   ├── devices.css
 │   ├── header.css
+│   ├── map.css               # Map interface styles
 │   └── bootstrap.css
 │
 ├── js/                       # JavaScript files directory

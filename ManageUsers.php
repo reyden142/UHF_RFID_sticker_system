@@ -7,7 +7,7 @@ if (!isset($_SESSION['Admin-name'])) {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Manage Users</title>
+	<title>Register Users</title>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="icon" type="image/png" href="images/favicon.png">
@@ -47,7 +47,7 @@ if (!isset($_SESSION['Admin-name'])) {
 <body>
 <?php include'header.php';?>
 <main>
-	<h1 class="slideInDown animated">Manage Users</h1>
+	<h1 class="slideInDown animated">Register Users</h1>
 	<div class="form-style-5 slideInDown animated">
 		<form enctype="multipart/form-data">
 			<div class="alert_user"></div>
@@ -57,7 +57,10 @@ if (!isset($_SESSION['Admin-name'])) {
 				<input type="text" name="name" id="name" placeholder="Name">
 				<input type="text" name="number" id="number" placeholder="ID Number">
 				<input type="email" name="email" id="email" placeholder="Email">
-				
+			    <label for="sex"><b> Sex:</b></label>
+			    <input type="radio" name="sex" class="sex" value="F"> Female
+
+	          	<input type="radio" name="sex" class="sex" value="M" checked="checked"> Male
 			</fieldset>
 			<fieldset>
 			<legend><span class="number">2</span> Additional Info</legend>
@@ -71,7 +74,7 @@ if (!isset($_SESSION['Admin-name'])) {
                         $result = mysqli_stmt_init($conn);
                         if (!mysqli_stmt_prepare($result, $sql)) {
                             echo '<p class="error">SQL Error</p>';
-                        } 
+                        }
                         else{
                             mysqli_stmt_execute($result);
                             $resultl = mysqli_stmt_get_result($result);
@@ -83,49 +86,27 @@ if (!isset($_SESSION['Admin-name'])) {
                         }
                       ?>
                     </select>
-				<input type="radio" name="sex" class="sex" value="Female"> Female
-	          	<input type="radio" name="sex" class="sex" value="Male" checked="checked"> Male
-				
-				
-				<select for="stickercolor" class="stickercolor" id="stickercolor" onchange="updateColor(this.value)" style="color: #001;">
-				<option value="None">Sticker Color</option>
-				<option value="Yellow">Yellow</option>
-				<option value="Orange">Orange</option>
-				<option value="Red">Red</option>
-				<option value="White">White</option>
-				<option value="Blue">Blue</option>
-				<option value="Green">Green</option>
-			</select>
+                    <input type="text" name="SSID" id="ssid" placeholder="SSID">
+                    <input type="text" name="Birthdate" id="Birthdate" placeholder="Birthdate">
+                    <input type="text" name="Contact" id="Contact" placeholder="Contact number">
+                    <input type="text" name="EmergencyContact" id="EmergencyContact" placeholder="Emergency number">
+                    <input type="text" name="ValidationPeriod" id="ValidationPeriod" placeholder="Validation Period">
+                    <input type="text" name="MedicalHistory" id="MedicalHistory" placeholder="Medical History">
 
-			<!-- add a hidden input field to hold the selected color -->
-			<input type="hidden" name="stickercolor" id="stickercolor_input">
-
-				<script>
-				function updateColor(color) {
-					// update the background color of the hidden input field
-					document.getElementById('stickercolor_input').style.backgroundColor = color;
-					//$stickercolor = color;
-					// set the value of the hidden input field to the selected color
-					document.getElementById('stickercolor_input').value ;
-				}
-				</script>
-				
-				
-				
 			</fieldset>
 			<button type="button" name="user_add" class="user_add">Add User</button>
 			<button type="button" name="user_upd" class="user_upd">Update User</button>
 			<button type="button" name="user_rmo" class="user_rmo">Remove User</button>
-			
-			
-			
+
+
+
 		</form>
 	</div>
 
 	<!--User table-->
 	<div class="section">
-		
-		<div class="slideInRight animated">
+
+		<div class="table-responsive slideInRight animated" style="max-width: 1250px">
 			<div id="manage_users"></div>
 		</div>
 	</div>

@@ -7,12 +7,20 @@
 </head>
 <header>
 <div class="header">
-	<div class="logo">
-	<img class ="image" src="img/RFID_STICKER_LOGO.jpg" alt="RFID Sticker Logo">
-	</div>
-		<div class="a" href="index.php">UM RFID CAR PASS STICKER</a>
+
+	<img id="logo" src="img/RFID SMART-TRACE.png" alt="RFID Sticker Logo">
+    <style>
+        #logo {
+            position: relative;
+            width: 400px; /* You can adjust the percentage as needed */
+        }
+    </style>
+
+    <div>
+		<div class="a" href="index.php">UM Smart-Trace</div>
 		<div class="b" href="index.php"> College of Engineering Education</div>
 		<div class="c" href="index.php"> Electronics Engineering</div>
+	</div>
 </div>
 <?php  
   if (isset($_GET['error'])) {
@@ -60,9 +68,11 @@
 ?>
 <div class="topnav" id="myTopnav">
 	<a href="index.php">Users</a>
-    <a href="ManageUsers.php">Manage Users</a>
+    <a href="ManageUsers.php">Register Users</a>
     <a href="UsersLog.php">Users Log</a>
     <a href="devices.php">Devices</a>
+    <a href="map.php">Map</a>
+
     <?php  
     	if (isset($_SESSION['Admin-name'])) {
     		echo '<a href="#" data-toggle="modal" data-target="#admin-account">'.$_SESSION['Admin-name'].'</a>';
@@ -75,6 +85,7 @@
     <a href="javascript:void(0);" class="icon" onclick="navFunction()">
 	  <i class="fa fa-bars"></i></a>
 </div>
+
 <div class="up_info1 alert-danger"></div>
 <div class="up_info2 alert-success"></div>
 </header>

@@ -31,10 +31,16 @@ $(document).ready(function(){
     var date_sel_end = $('#date_sel_end').val();
     var time_sel = $(".time_sel:checked").val();
     var time_sel_start = $('#time_sel_start').val();
+    var time_with_milliseconds = $('#time_with_milliseconds').val();
     var time_sel_end = $('#time_sel_end').val();
-	var sticker_color = $('#sticker_color').val();
     var card_sel = $('#card_sel option:selected').val();
     var dev_uid = $('#dev_sel option:selected').val();
+    var ssid = $('#ssid').val();
+    var Birthdate = $('#Birthdate').val();
+    var Contact = $('#Contact').val();
+    var EmergencyContact = $('#EmergencyContact').val();
+    var ValidationPeriod = $('#ValidationPeriod').val();
+    var MedicalHistory = $('#MedicalHistory').val();
     
     $.ajax({
       url: 'user_log_up.php',
@@ -45,10 +51,17 @@ $(document).ready(function(){
         'date_sel_end': date_sel_end,
         'time_sel': time_sel,
         'time_sel_start': time_sel_start,
+       'time_with_milliseconds':time_with_milliseconds,
         'time_sel_end': time_sel_end,
-		'sticker_color': sticker_color,
         'card_sel': card_sel,
         'dev_uid': dev_uid,
+        'ssid': ssid,
+        'Birthdate': Birthdate,
+        'Contact': Contact,
+        'EmergencyContact': EmergencyContact,
+        'EmergencyContact': EmergencyContact,
+        'ValidationPeriod': ValidationPeriod,
+        'MedicalHistory': MedicalHistory,
       },
       success: function(response){
 
@@ -69,10 +82,16 @@ $(document).ready(function(){
             'date_sel_end': date_sel_end,
             'time_sel': time_sel,
             'time_sel_start': time_sel_start,
+            'time_with_milliseconds':time_with_milliseconds,
             'time_sel_end': time_sel_end,
-			'sticker_color': sticker_color,
             'dev_uid': dev_uid,
             'card_sel': card_sel,
+            'ssid': ssid,
+            'Birthdate': Birthdate,
+            'Contact': Contact,
+            'EmergencyContact': EmergencyContact,
+            'ValidationPeriod': ValidationPeriod,
+            'MedicalHistory': MedicalHistory,
             'select_date': 0,
           }
           }).done(function(data) {
